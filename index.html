@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  
+  <!-- SEO Primary Meta Tags -->
+  <title>ENCAL Pro — 산업용 계산기 & 공학용 계산기 | Industrial & Scientific Calculator</title>
+  <meta name="description" content="ENCAL Pro: 현장 엔지니어를 위한 최고의 산업용 계산기 및 학생·연구원을 위한 공학용 계산기 통합 플랫폼. 기계, 전기, 전선, 설계, 공차, 화학 등 100개 이상의 공식 연산 제공. Industrial & Scientific Calculator.">
+  <meta name="keywords" content="산업용 계산기, 공학용 계산기, 공학 계산기, 엔지니어링 계산기, Industrial Calculator, Scientific Calculator, Engineering Calculator, ENCAL Pro">
+  <meta name="author" content="ENCAL Pro">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph (Facebook, KakaoTalk, Naver Blog) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ENCAL Pro — 산업용 계산기 & 공학용 계산기">
+  <meta property="og:description" content="기계, 전기, 설계, 소재 등 100+ 엔지니어링 공식 통합 연산 플랫폼. Industrial & Scientific Calculator.">
+  <meta property="og:site_name" content="ENCAL Pro">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ENCAL Pro — 산업용 계산기 & 공학용 계산기">
+  <meta name="twitter:description" content="현장 실무용 산업용 계산기 및 학술 이론용 공학용 계산기 통합 플랫폼.">
+  
+  <!-- Search Engine Verification Placeholders -->
+  <!-- Naver Search Advisor Verification (네이버 서치어드바이저 소유자 확인 코드 입력란) -->
+  <meta name="naver-site-verification" content="">
+  <!-- Google Search Console Verification (구글 서치콘솔 소유자 확인 코드 입력란) -->
+  <meta name="google-site-verification" content="">
+
+  <!-- JSON-LD Structured Data (Google Rich Results Optimization) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ENCAL Pro",
+    "description": "Comprehensive Industrial & Scientific Calculator for engineers, technicians, and students. 산업용 계산기 및 공학용 계산기 통합 플랫폼.",
+    "applicationCategory": "BusinessApplication, EducationalApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires HTML5 compatible browser",
+    "keywords": "Industrial Calculator, Scientific Calculator, 산업용 계산기, 공학용 계산기, 공학 계산기, 엔지니어링 계산기"
+  }
+  </script>
+
+  <meta name="theme-color" content="#0a0e1a">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a class="logo" onclick="goHome()">
+      <div class="logo-icon">E</div>
+      <div class="logo-text"><span>ENCAL</span> Pro</div>
+    </a>
+    <div class="header-search">
+      <span class="s-icon">🔍</span>
+      <input type="text" placeholder="계산기 검색..." id="searchInput" autocomplete="off">
+      <button class="s-clear" id="searchClear" onclick="clearSearch()">✕</button>
+    </div>
+    <div class="lang-switch">
+      <button id="btnLangKo" class="lang-btn active" onclick="App.setLanguage('ko')">KOR</button>
+      <button id="btnLangEn" class="lang-btn" onclick="App.setLanguage('en')">ENG</button>
+    </div>
+  </header>
+
+  <!-- App Mode Switcher -->
+  <div class="app-mode-switch">
+    <button id="btnModeIndustrial" class="mode-switch-btn active" onclick="App.setAppMode('industrial')">🏢 산업용 계산기</button>
+    <button id="btnModeEngineering" class="mode-switch-btn" onclick="App.setAppMode('engineering')">🎓 공학용 계산기</button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav-area" id="navArea">
+    <div class="cat-grid" id="catGrid"></div>
+    <div class="nav-row" id="subRow" style="display:none"></div>
+    <div class="nav-row calc-row" id="calcRow" style="display:none"></div>
+  </nav>
+
+  <!-- Top Ad -->
+  <div class="ad-container" id="adTop">
+    <div class="ad-slot" data-ad-position="top">
+      <p class="ad-placeholder">AD</p>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <main class="main" id="mainArea">
+    <div class="welcome" id="welcomeView">
+      <div class="welcome-emoji">🛠️</div>
+      <h2 id="welcomeTitle">산업용 엔지니어링 계산기</h2>
+      <p id="welcomeSub">위쪽 분류 버튼을 눌러<br>원하는 계산기를 선택하세요.</p>
+      <div class="welcome-stats">
+        <div><div class="w-stat-val" id="statTotal">0</div><div class="w-stat-label" id="lblStatTotal">전체 계산기</div></div>
+        <div><div class="w-stat-val" id="statFields">6</div><div class="w-stat-label" id="lblStatFields">공학 분야</div></div>
+      </div>
+    </div>
+
+    <div class="calc-view" id="calcView">
+      <div class="calc-breadcrumb" id="breadcrumb"></div>
+      <h1 class="calc-title" id="calcTitle"></h1>
+      <p class="calc-desc" id="calcDesc"></p>
+      <div class="formula-box" id="formulaBox"></div>
+      <div id="modeTabsWrap"></div>
+      <div id="inputsWrap"></div>
+      <div class="result-box" id="resultBox">
+        <div class="result-label" id="resultLabel"></div>
+        <div class="result-value"><span id="resultValue">0</span><span class="result-unit" id="resultUnit"></span></div>
+        <div id="resultDetail" style="margin-top:0.6rem;font-size:0.85rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;word-break:break-all;"></div>
+      </div>
+      <button class="reset-btn" id="btnReset" onclick="resetInputs()">초기화</button>
+
+      <!-- Inline Ad -->
+      <div class="ad-container" style="padding:0;margin-top:1rem">
+        <div class="ad-slot ad-slot-inline" data-ad-position="inline">
+          <p class="ad-placeholder">AD</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Ad -->
+  <div class="ad-container" id="adBottom">
+    <div class="ad-slot" data-ad-position="bottom">
+      <p class="ad-placeholder">AD</p>
+    </div>
+  </div>
+
+  <footer class="footer">© 2026 ENCAL Pro — Made for Engineers 🛠️</footer>
+
+  <!-- Data Files -->
+  <script src="js/translations.js"></script>
+  <script src="js/data/design.js"></script>
+  <script src="js/data/mechanical.js"></script>
+  <script src="js/data/manufacturing.js"></script>
+  <script src="js/data/fastening.js"></script>
+  <script src="js/data/electrical.js"></script>
+  <script src="js/data/material.js"></script>
+  <script src="js/data/thermal_fluid.js"></script>
+  <script src="js/data/measurement_math.js"></script>
+  <script src="js/data/properties.js"></script>
+  <script src="js/data/conversion.js"></script>
+  <script src="js/data/engineering_1.js"></script>
+  <script src="js/data/engineering_2.js"></script>
+
+  <!-- App Scripts -->
+  <script src="js/engine.js"></script>
+  <script src="js/ads.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
